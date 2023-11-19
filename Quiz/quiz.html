@@ -1,0 +1,34 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv=“X-UA-Compatible” content=“ie=edge”>
+    <title>Quiz Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Genos&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="quizstyle.css">
+</head>
+
+<body>
+    <header>
+        <a href="/highscores.html" id="highscores" class="highscores">Highscores</a>
+        <h1>Timer</h1>
+    </header>
+
+    <main id="question-container">
+        <h2>Question:</h2>
+            <p id="question">Question 1</p>
+                <div id="answer-buttons" class="btn-grid">
+                    <button class="btn">Answer 1</button>
+                    <button class="btn">Answer 2</button>
+                    <button class="btn">Answer 3</button>
+                    <button class="btn">Answer 4</button>
+                </div>
+        <div class="controls"> 
+            <button id="next-btn" class="next-btn">Next Question</button>
+        </div>
+    </main>
+
+
+<script src="Quiz\quizjs.js"></script>  
+</body>

@@ -115,16 +115,9 @@ button:hover {
 }
 
 .correct {
-    background-color: green;
+    background-color: green
 }
 
 .incorrect {
-    background-color: red;
-}
-
-@media screen and (max-width: 768px) {
-    body {
-        display: flex;
-        flex-direction: column;
-    }
+    background-color: red
 }
