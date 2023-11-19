@@ -1,0 +1,65 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Genos', sans-serif;
+}
+
+:root {
+    --deep-purple: #6b006c;
+    --light-purple: #8a5eff;
+}
+a {
+    font-size: 22px;
+    color: black;
+}
+
+h1, h2, h3 {
+    font-size: 22px;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border-bottom: 1px solid var(--deep-purple);
+    height: 10vh;
+    width: 100vw;
+    
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 50vh;
+}
+
+container {
+    width:800px;
+    max-width: 80%;
+}
+
+
+button {
+    color: #ffffff;
+    background-color: var(--deep-purple);
+    border-radius: 5px;
+}
+
+.btn-grid {
+    display: grid;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+#question {
+    font-size: 30px;
+}
