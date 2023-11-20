@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 
-<html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv=“X-UA-Compatible” content=“ie=edge”>
-    <title>Coding Quiz Challenge</title>
+    <title>End Page</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Genos&display=swap" rel="stylesheet">
@@ -16,20 +14,18 @@
 <body>
     <header>
         <a href="/highscores.html" id="highscores" class="highscores">Highscores</a>
+        <h1 id="timer">Timer</h1>
     </header>
 
-    <main>
-        <h1>Coding Quiz</h1>
-        <h2>With the knowledge you've gained throughout this bootcamp, attempt to answer the following questions before the timer runs out.</h2>
-        <br> 
-        <H2>DO YOU HAVE WHAT IT TAKES?</H2>
-
-        <div class="controls">
-            <button id="start-btn" class="start-btn">Start Quiz</button>
-        </div>
+    <main id="question-container">
+        <h2>Quiz Complete!</h2>
+        <h3>Your final score is <span id="final-score"></span></h3>
+        <form>
+            <label for="initials">Enter your initials:</label>
+            <input type="text" id="initials" name="initials" placeholder="Your initials here">
+            <br>
+            <button id="submit-btn" class="submit-btn">Submit</button>
+        </form>
     </main>
 
-<script src="develop/script.js"></script>   
-</body>
-
-    </html>
+    <script src="develop/script.js"></script>
