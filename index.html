@@ -16,7 +16,9 @@
 <body>
     <header>
         <a href="/highscores.html" id="highscores" class="highscores">Highscores</a>
+        <h1 id="timer">Timer</h1>
     </header>
+
 
     <main>
         <h1>Coding Quiz</h1>
@@ -28,6 +30,34 @@
             <button id="start-btn" class="start-btn">Start Quiz</button>
         </div>
     </main>
+
+    <main id="question-container">
+        <h2>Question:</h2>
+            <p id="question">Question 1</p>
+                <div id="choice-buttons" class="btn-grid">
+                    <button id="choice1" class="choice">Choice 1</button>
+                    <button id="choice2" class="choice">Choice 2</button>
+                    <button id="choice3" class="choice">Choice 3</button>
+                    <button id="choice4" class="choice">Choice 4</button>
+                </div>
+        <div class="controls"> 
+            <button id="next-btn" class="next-btn">Next Question</button>
+        </div>
+        <h3 id="score">Score: 0</h3>
+    </main>
+
+    <body>
+        <main id="question-container">
+            <h2>Quiz Complete!</h2>
+            <h3>Your final score is <span id="final-score"></span></h3>
+            <form>
+                <label for="initials">Enter your initials:</label>
+                <input type="text" id="initials" name="initials" placeholder="Your initials here">
+                <br>
+                <button id="submit-btn" class="submit-btn">Submit</button>
+            </form>
+        </main>
+    
 
 <script src="develop/script.js"></script>   
 </body>
