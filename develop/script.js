@@ -9,54 +9,67 @@ const finalScore = document.querySelector("#finalScore");
 let currentQuestion = {};
 let acceptingAnswers = true;
 let score = 0;
-let questionCounter = 0;   
+let questionCounter = 0;
 let availableQuestions = [];
+let shuffledQuestions = [];
+let timeLeft = 90;
+let timeIntervalID;
 
 const questions = [
     {
         question: "What is an array?",
-        choice1: "A pack of ravenous moose",
-        choice2: "An unordered list of random items",
-        choice3: "A collection of data",
-        choice4: "idk lol",
-        answer: 3,
-    },
-    {
-        question: "What is JavaScript?",
-        choice1: "A series of unfortunate events",
-        choice2: "A coffee stained film script",
-        choice3: "idk lol",
-        choice4: "A language used to program web pages",
-        answer: 4,
-    },
-    {
-        question: "What term does NOT belong?",
-        choice1: "idk lol",
-        choice2: ".CSS",
-        choice3: ".JS",
-        choice4: ".HTML",
-        answer: 1,
-    },
-    {
-        question: "Why is JavaScript important?",
-        choice1: "It causes the sun to rise and set",
-        choice2: "It is used to program web pages",
-        choice3: "It's not. Computers are lame",
-        choice4: "idk lol",
+        choices: [
+            "A pack of ravenous moose",
+            "An unordered list of random items",
+            "A collection of data",
+            "idk lol",
+        ],
         answer: 2,
     },
     {
-        question: "How do you create a function in JavaScript?",
-        choice1: "function = myFunction()",
-        choice2: "function:myFunction()",
-        choice3: "function myFunction()",
-        choice4: "idk lol",
+        question: "What is JavaScript?",
+        choices: [
+            "A series of unfortunate events",
+            "A coffee stained film script",
+            "idk lol",
+            "A language used to program web pages",
+        ],
+        answer: 3,
+    },
+    {
+        question: "What term does NOT belong?",
+        choices: [
+            "idk lol",
+            ".CSS",
+            ".JS",
+            ".HTML",
+        ],
+        answer: 0,
+    },
+    {
+        question: "Why is JavaScript important?",
+        choices: [
+            "It causes the sun to rise and set",
+            "It is used to program web pages",
+            "It's not. Computers are lame",
+            "idk lol",
+        ],
         answer: 1,
+    },
+    {
+        question: "How do you create a function in JavaScript?",
+        choices: [
+            "function = myFunction()",
+            "function:myFunction()",
+            "function myFunction()",
+            "idk lol",
+        ],
+        answer: 0,
     },
 ]
 
 const SCORE_POINTS = 100;
-const MAX_QUESTIONS = 5;
+const MAX_QUESTIONS = questions.length;
 
 function startGame() {
     console.log("Let the game begin...");
@@ -70,6 +83,35 @@ function startGame() {
 function getNewQuestion() {
     // resetState();
     showQuestion(shuffledQuestions[questionCounter]);
+    // addChoicesListener() 
+    let buttons = document.querySelectorAll(".choice");
+    buttons.forEach(button => {
+        button.addEventListener("click", checkAnswer);
+    })
+}
+
+function checkAnswer(e) {
+    e.stopPropagation();
+    let currentAnswer = e.target.innerText;
+    let correctAnswerIndex = shuffledQuestions[questionCounter].answer;
+    let correctAnswer = shuffledQuestions[questionCounter].choices[correctAnswerIndex];
+    if (currentAnswer === correctAnswer) {
+        score++;
+        alert("Correct!");
+    }
+    else {
+        // penanlty 
+        timeLeft -= 5;
+        alert("Wrong!");
+        }
+
+    questionCounter++;
+    if(questionCounter < MAX_QUESTIONS - 1 ){
+    showQuestion(shuffledQuestions[questionCounter]);
+    }
+    else {
+        // endGame(); // build function
+    }
 }
 
 // function resetState() {
@@ -82,16 +124,17 @@ function getNewQuestion() {
 // }
 
 function showQuestion(questions) {
-    const button = document.querySelectorAll("choice");
+    const buttons = document.querySelectorAll(".choice");
     questionElement.innerText = questions.question;
-    question.choices.forEach(choice => {
-        button.innerText = choice.text;
+    questions.choices.forEach((choice, idx) => {
+        let button = buttons[idx];
+        button.innerText = choice;
         button.classList.add("btn-grid");
-        if (answer.correct) {
-            button.dataset.answer = answer.correct;
-        }
-        button.addEventListener("click", selectAnswer);
-        choices.appendChild(button);
+        // if (answer.correct) {
+        //     button.dataset.answer = answer.correct;
+        // }
+        // button.addEventListener("click", selectAnswer);
+        // choices.appendChild(button);
     })
 }
 
@@ -128,8 +171,7 @@ function showQuestion(questions) {
 // }
 
 function startTimer() {
-    let timeLeft = 90;
-    let timeInterval = setInterval(function() {
+     timeIntervalID = setInterval(function () {
         if (timeLeft > 1) {
             timer.textContent = timeLeft + " seconds remaining";
             timeLeft--;
@@ -138,10 +180,13 @@ function startTimer() {
             timeLeft--;
         } else {
             timer.textContent = "";
-            clearInterval(timeInterval);
-            // displayMessage();
+            endGame();
         }
     }, 1000);
+}
+
+function endGame() {
+    clearInterval(timeIntervalID);
 }
 
 // function displayMessage() {
