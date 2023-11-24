@@ -68,26 +68,25 @@ const questions = [
     },
 ]
 
-const SCORE_POINTS = 100;
+const MAX_POINTS = 100;
 const MAX_QUESTIONS = questions.length;
 
 function startGame() {
     console.log("Let the game begin...");
     questionCounter = 0;
-    score = 0;
+    // score = 0;
     shuffledQuestions = questions.sort(() => Math.random() - .5);
     getNewQuestion();
     startTimer();
 }
-
+// how can this be delayed by a half second for the selection to be green or red?
 function getNewQuestion() {
-    // resetState();
     showQuestion(shuffledQuestions[questionCounter]);
-    // addChoicesListener() 
+    
     let buttons = document.querySelectorAll(".choice");
     buttons.forEach(button => {
         button.addEventListener("click", checkAnswer);
-    })
+    }) 
 }
 
 function checkAnswer(e) {
@@ -96,32 +95,20 @@ function checkAnswer(e) {
     let correctAnswerIndex = shuffledQuestions[questionCounter].answer;
     let correctAnswer = shuffledQuestions[questionCounter].choices[correctAnswerIndex];
     if (currentAnswer === correctAnswer) {
-        score++;
-        alert("Correct!");
+        score++; // why is this not working?
+        e.target.style.backgroundColor = 'green';
+        setTimeout(function() {
+            e.target.style.backgroundColor = ''; // Reset color
+        }, 1000);
     }
     else {
-        // penanlty 
         timeLeft -= 5;
-        alert("Wrong!");
+        e.target.style.backgroundColor = 'red';
+        setTimeout(function() {
+            e.target.style.backgroundColor = ''; // Reset color
+        }, 1000);
         }
-
-    questionCounter++;
-    if(questionCounter < MAX_QUESTIONS - 1 ){
-    showQuestion(shuffledQuestions[questionCounter]);
-    }
-    else {
-        // endGame(); // build function
-    }
 }
-
-// function resetState() {
-//     clearStatusClass(document.body);
-//     // nextButton.classList.add("hidden");
-//     while (answerButtonsElement.firstChild) {
-//         answerButtonsElement.removeChild
-//         (answerButtonsElement.firstChild);
-//     }
-// }
 
 function showQuestion(questions) {
     const buttons = document.querySelectorAll(".choice");
@@ -130,45 +117,8 @@ function showQuestion(questions) {
         let button = buttons[idx];
         button.innerText = choice;
         button.classList.add("btn-grid");
-        // if (answer.correct) {
-        //     button.dataset.answer = answer.correct;
-        // }
-        // button.addEventListener("click", selectAnswer);
-        // choices.appendChild(button);
     })
 }
-
-
-// function selectAnswer(e) {
-//     const selectedButton = e.target;
-//     const correct = selectedButton.dataset.correct;
-//     setStatusClass(document.body, correct);
-//     Array.from(choices.children).forEach(button => {
-//         setStatusClass(button, button.dataset.correct);
-//     })
-//     if (shuffledQuestions.length > questionCounter + 1) {
-//         nextButton.classList.remove("hidden");
-//     } else {
-//         startButton.innerText = "Restart";
-//         startButton.classList.remove("hidden");
-//     }
-
-//     return window.location.assign("end.html");
-// }
-
-// function setStatusClass(element, correct) {
-//     clearStatusClass(element);
-//     if (correct) {
-//         element.classList.add("correct");
-//     } else {
-//         element.classList.add("wrong");
-//     }
-// }
-
-// function clearStatusClass(element) {
-//     element.classList.remove("correct");
-//     element.classList.remove("wrong");
-// }
 
 function startTimer() {
      timeIntervalID = setInterval(function () {
@@ -187,18 +137,38 @@ function startTimer() {
 
 function endGame() {
     clearInterval(timeIntervalID);
+
+    let endSection = document.getElementById('end');
+    let quizSection = document.getElementById('question-container');
+
+    endSection.style.display = "flex";
+    quizSection.style.display = "none";
 }
 
-// function displayMessage() {
-//     timer.textContent = "Time's up!";
-//     setTimeout(function() {
-//         timer.textContent = "";
-//     }, 1000);
-//     return window.location.assign("end.html");
-// }
+function displayMessage() {
+    timer.textContent = "Time's up!";
+    setTimeout(function() {
+        timer.textContent = "";
+    }, 1000);
+    return;
+}
 
-startButton.addEventListener("click", startGame);
-// nextButton.addEventListener("click", () => {
-//     questionCounter++;
-//     getNewQuestion();
-// })
+startButton.addEventListener("click", function() {
+    let startSection = document.getElementById('start');
+    let quizSection = document.getElementById('question-container');
+
+    startSection.style.display = "none";
+    quizSection.style.display = "flex";
+
+    startGame();
+});
+
+nextButton.addEventListener("click", function() {
+    questionCounter++;
+    if(questionCounter < MAX_QUESTIONS){
+    showQuestion(shuffledQuestions[questionCounter]);
+    }
+    else {
+        endGame();
+    }
+});

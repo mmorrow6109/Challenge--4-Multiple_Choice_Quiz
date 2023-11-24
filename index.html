@@ -20,18 +20,18 @@
     </header>
 
 
-    <main>
+    <main id="start">
         <h1>Coding Quiz</h1>
-        <h2>With the knowledge you've gained throughout this bootcamp, attempt to answer the following questions before the timer runs out.</h2>
+        <p>With the knowledge you've gained throughout this bootcamp, attempt to answer the following questions before the timer runs out.</p>
         <br> 
-        <H2>DO YOU HAVE WHAT IT TAKES?</H2>
+        <p>DO YOU HAVE WHAT IT TAKES?</p>
 
         <div class="controls">
             <button id="start-btn" class="start-btn">Start Quiz</button>
         </div>
     </main>
 
-    <main id="question-container">
+    <main id="question-container" class="hidden">
         <h2>Question:</h2>
             <p id="question">Question 1</p>
                 <div id="choice-buttons" class="btn-grid">
@@ -43,12 +43,11 @@
         <div class="controls"> 
             <button id="next-btn" class="next-btn">Next Question</button>
         </div>
-        <h3 id="score">Score: 0</h3>
+        <h3 id="score">Score: </h3>
     </main>
 
-    <body>
-        <main id="question-container">
-            <h2>Quiz Complete!</h2>
+    <main id="end" class="hidden">
+            <p>Quiz Complete!</p>
             <h3>Your final score is <span id="final-score"></span></h3>
             <form>
                 <label for="initials">Enter your initials:</label>
@@ -56,10 +55,10 @@
                 <br>
                 <button id="submit-btn" class="submit-btn">Submit</button>
             </form>
-        </main>
+    </main>
     
 
 <script src="develop/script.js"></script>   
 </body>
 
-    </html>
+</html>
