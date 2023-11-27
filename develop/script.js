@@ -4,7 +4,8 @@ const questionElement = document.querySelector("#question");
 const choices = Array.from(document.querySelectorAll("choice-buttons"));
 const timer = document.querySelector("#timer");
 const scoreText = document.querySelector("#score");
-const finalScore = document.querySelector("#finalScore");
+const finalScore = document.querySelector("#final-Score");
+const highScores = document.getElementById("#highscores");
 
 let currentQuestion = {};
 let acceptingAnswers = true;
@@ -14,6 +15,8 @@ let availableQuestions = [];
 let shuffledQuestions = [];
 let timeLeft = 90;
 let timeIntervalID;
+let submitButton = document.getElementById("submit-btn");
+
 
 const questions = [
     {
@@ -74,12 +77,12 @@ const MAX_QUESTIONS = questions.length;
 function startGame() {
     console.log("Let the game begin...");
     questionCounter = 0;
-    // score = 0;
+    score = 0;
     shuffledQuestions = questions.sort(() => Math.random() - .5);
     getNewQuestion();
     startTimer();
 }
-// how can this be delayed by a half second for the selection to be green or red?
+
 function getNewQuestion() {
     showQuestion(shuffledQuestions[questionCounter]);
     
@@ -96,6 +99,7 @@ function checkAnswer(e) {
     let correctAnswer = shuffledQuestions[questionCounter].choices[correctAnswerIndex];
     if (currentAnswer === correctAnswer) {
         score++; // why is this not working?
+        scoreText.innerText = score;
         e.target.style.backgroundColor = 'green';
         setTimeout(function() {
             e.target.style.backgroundColor = ''; // Reset color
@@ -171,4 +175,15 @@ nextButton.addEventListener("click", function() {
     else {
         endGame();
     }
+});
+
+submitButton.addEventListener("click", function() {
+    localStorage.setItem("finalScore", score);
+    console.log(score, "see ya later");
+});
+
+highScores.addEventListener("click", function() {
+    let storedScores = localStorage.getItem("finalScore");
+    finalScore = parseInt(storedScores);
+    console.log(storedScores);
 });
